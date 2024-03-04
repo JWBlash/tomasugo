@@ -21,7 +21,7 @@ func startClock() {
 
 func main() {
 	terminate := make(chan os.Signal, 1)
-	signal.Notify(terminate, syscall.SIGINT) // when we get a SIGTERM, do the cleanup
+	signal.Notify(terminate, syscall.SIGINT) // cleanup on interrupt
 	go startClock()
 
 	select {
