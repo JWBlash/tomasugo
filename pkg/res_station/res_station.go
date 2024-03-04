@@ -8,3 +8,9 @@ type ResStation struct {
 	Name  string
 	Slots chan instruction.Instruction
 }
+
+func NewResStation(numSlots int) *ResStation {
+	return &ResStation{
+		Slots: make(chan instruction.Instruction, numSlots),
+	}
+}

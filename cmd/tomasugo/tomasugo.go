@@ -2,13 +2,32 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/jwblash/tomasugo/pkg/clock"
 )
 
-func main() {
+func startClock() {
 	cl := clock.CPUClock
-	fmt.Printf("%v\n", cl.Cycle)
-	cl.Tick()
-	fmt.Printf("%v\n", cl.Cycle)
+	for {
+		cl.Tick()
+		fmt.Printf("+++ CYCLE: %v\n", cl.Cycle)
+		time.Sleep(500 * time.Millisecond)
+	}
+}
+
+func main() {
+	terminate := make(chan os.Signal, 1)
+	signal.Notify(terminate, syscall.SIGINT) // when we get a SIGTERM, do the cleanup
+	go startClock()
+
+	select {
+	case t := <-terminate:
+		fmt.Printf("+++ %v received. terminating...\n", t)
+		// work done case later
+	}
+
 }
