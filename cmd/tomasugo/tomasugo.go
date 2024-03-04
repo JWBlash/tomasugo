@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/jwblash/tomasugo/pkg/clock"
+)
 
 func main() {
-	fmt.Printf("tomasugo\n")
+	cl := clock.CPUClock
+	fmt.Printf("%v\n", cl.Cycle)
+	cl.Tick()
+	fmt.Printf("%v\n", cl.Cycle)
 }

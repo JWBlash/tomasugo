@@ -1,6 +1,8 @@
-package main
+package clock
 
 // provides the interface for ticking the clock
+
+var CPUClock = NewClock()
 
 type Clock struct {
 	Cycle int
